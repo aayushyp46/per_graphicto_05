@@ -21,7 +21,7 @@ const IntroPage = () => {
     <header className="pb-20 w-full">
       <div className="container mx-auto flex flex-col md:flex-row justify-between px-4 md:px-28 py-4 relative">
         <div className="flex justify-between items-center w-full md:w-auto">
-          <Image src="/logo/logo.png" alt="Logo" width={180} height={100} />
+          <Image src="/logo1.png" alt="Logo" width={180} height={100} />
           <button
             onClick={() => setDropdownOpen(!isDropdownOpen)}
             className="md:hidden ml-4 text-gray-700 hover:text-blue-600"
