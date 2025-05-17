@@ -28,7 +28,7 @@ const IntroPage = () => {
           >
             <Image src="/icon/dropdown.png" alt="Menu" width={20} height={20} />
           </button>
-        </div>
+        </div>   
 
         {isDropdownOpen && (
           <div className="absolute left-0 right-0 bg-white shadow-lg rounded-md mt-2 z-10 p-4">
