@@ -206,7 +206,7 @@ export default function EditHeader({ onDownload }: EditHeaderProps) {
                     Download
                 </button>
             </div>
-        </div>
+        </div>  
     </div>
 )}
         </header>
