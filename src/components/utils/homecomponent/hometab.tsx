@@ -251,7 +251,7 @@ export default function HomeTab() {
                         alt={template.alt || `Featured Template ${index}`}
                         width={500}
                         height={300}
-                           onError={(e) => {
+                           onError={(e) => {    
                       // Replace failed image with an inline data URI placeholder instead of a file path
                       const target = e.target as HTMLImageElement;
                       target.onerror = null; // Prevent infinite error loop
