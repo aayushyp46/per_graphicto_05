@@ -51,7 +51,7 @@ export default function EditHeader({ onDownload }: EditHeaderProps) {
         
             <div className="flex items-center gap-4">
                 <Image
-                    src="/logo/logo1.png"
+                    src="/logo1.png"
                     alt="Logo"
                     width={40}
                     height={40}
@@ -67,18 +67,18 @@ export default function EditHeader({ onDownload }: EditHeaderProps) {
             
             <div className="flex items-center mr-4 gap-6">
                 <button className="text-white flex items-center gap-2">
-                    <Image src="/edit/save.png" alt="Save" width={24} height={28} />
+                    <Image src="/save.png" alt="Save" width={24} height={28} />
                     Saved
                 </button>
                 <button 
                     className="text-white flex items-center gap-2"
                     onClick={handleDownloadClick}
                 >
-                    <Image src="/edit/download.png" alt="Download" width={24} height={24} />
+                    <Image src="/download.png" alt="Download" width={24} height={24} />
                     Download
                 </button>
                 <button className="text-white flex items-center gap-2">
-                    <Image src="/edit/share.png" alt="Share" width={24} height={20} />
+                    <Image src="/share.png" alt="Share" width={24} height={20} />
                     Share
                 </button>
 
