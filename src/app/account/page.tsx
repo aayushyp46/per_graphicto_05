@@ -29,7 +29,7 @@ const AccountPage: React.FC = () => {
       default:
         return <div>Select a tab to view content.</div>;
     }
-  };
+  };  
 
   return (
     <div className="flex h-screen bg-gray-100 font-sans" suppressHydrationWarning>
