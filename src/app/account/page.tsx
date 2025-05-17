@@ -51,7 +51,7 @@ const AccountPage: React.FC = () => {
             >
               <Image src="/icon/dropdown.png" alt="Open Sidebar" width={24} height={24} />
             </button>
-            <Image src="/logo/logo.png" alt="Logo" width={100} height={50} className="mt-2" />
+            <Image src="/logo1.png" alt="Logo" width={100} height={50} className="mt-2" />
           </div>
         </div>
         <h1 className="text-black text-2xl mt-14 lg:mt-0 p-4 pl-10">Account Settings</h1>

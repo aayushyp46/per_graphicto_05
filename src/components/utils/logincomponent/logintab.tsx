@@ -115,7 +115,7 @@ const LoginTabPage = () => {
         ) : (
           <div className="relative m-4 bg-white p-6 rounded-lg shadow-lg w-full max-w-md sm:max-w-xl">
              <Image
-      src="/logo/logo.png"
+      src="/logo1.png"
       alt="logo"
       width={180}
       height={100}
@@ -138,7 +138,7 @@ const LoginTabPage = () => {
               </button>
               <button className="w-full h-14 flex items-center justify-center gap-2 px-4 py-2 font-semibold text-[#606266] border border-gray-300 bg-white hover:bg-blue-100 hover:text-blue-600 rounded-md">
                 <Image
-                  src="/icon/facebook.png"
+                  src="/facebook.png"
                   alt="Facebook"
                   width={24}
                   height={24}
