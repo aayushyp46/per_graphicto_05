@@ -31,7 +31,7 @@ const AccountPage: React.FC = () => {
     }
   };  
 
-  return (
+  return (  
     <div className="flex h-screen bg-gray-100 font-sans" suppressHydrationWarning>
       <Sidebar
         handleButtonClick={handleSidebarButtonClick}
