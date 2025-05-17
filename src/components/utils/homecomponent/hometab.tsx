@@ -243,7 +243,7 @@ export default function HomeTab() {
                 {getVisibleTemplates(Object.keys(categorizedTemplates)[0]).map(
                   (template, index) => (
                     <div
-                      key={`featured-${template.id}-${index}`}
+                      key={`featured-${template.id}-${index}`}  
                       className="relative group min-w-[150px] h-40 flex items-center justify-center mx-2 sm:min-w-[200px] sm:h-40 md:min-w-[250px] md:h-56 lg:min-w-[300px] lg:h-64"
                     >
                       <Image
