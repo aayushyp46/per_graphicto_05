@@ -22,7 +22,7 @@ const TemplateHomePage = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [categories, setCategories] = useState<string[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Single loading state for both categories and templates
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [allTemplates, setAllTemplates] = useState<Template[]>([]);
 
@@ -42,18 +42,22 @@ const TemplateHomePage = () => {
           setError("Failed to fetch categories");
         }
 
-        
+        // Fetch templates
         const templateResponse = await fetch("/api/templatesApi/list");
         const templateData = await templateResponse.json();
         if (Array.isArray(templateData)) {
-          setAllTemplates(templateData);
-          setVisibleTemplates(templateData); 
+          // Filter out templates with invalid image paths
+          const validTemplates = templateData.filter(
+            (template) => template.image_path && template.image_path.trim() !== ""
+          );
+          setAllTemplates(validTemplates);
+          setVisibleTemplates(validTemplates);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
         setError("Error fetching data");
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -62,9 +66,12 @@ const TemplateHomePage = () => {
 
   const handleCategoryClick = (category: string) => {
     setSelectedCategory(category.toLowerCase());
-    const filteredTemplates = allTemplates.filter(
-      (template) => template.category_name.toLowerCase() === category.toLowerCase()
-    );
+    const filteredTemplates = 
+      category.toLowerCase() === "all" 
+        ? allTemplates 
+        : allTemplates.filter(
+            (template) => template.category_name.toLowerCase() === category.toLowerCase()
+          );
     setVisibleTemplates(filteredTemplates);
     setCurrentPage(1);
     setImageIndex(0);
@@ -117,10 +124,11 @@ const TemplateHomePage = () => {
                 setCurrentPage(pageNumber);
                 setImageIndex((pageNumber - 1) * itemsPerPage);
               }}
-              className={`px-4 py-2 ${currentPage === pageNumber
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-700 hover:text-white hover:bg-blue-500"
-                } rounded-3xl`}
+              className={`px-4 py-2 ${
+                currentPage === pageNumber
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-700 hover:text-white hover:bg-blue-500"
+              } rounded-3xl`}
             >
               {pageNumber}
             </button>
@@ -147,22 +155,37 @@ const TemplateHomePage = () => {
         {currentTemplates.length > 0 ? (
           currentTemplates.map((template, index) => (
             <div key={template.id} className="cursor-pointer">
-              <Image
-                src={template.image_path}
-                alt={`Preview after view Template ${index + 1}`}
-                width={600}
-                height={500}
-                className="w-full h-auto rounded-xl shadow-lg object-cover"
-              />
+              {template.image_path && template.image_path.trim() !== "" ? (
+                <div className="relative">
+                  <Image
+                    src={template.image_path}
+                    alt={`Template preview ${index + 1}`}
+                    width={600}
+                    height={500}
+                    className="w-full h-auto rounded-xl shadow-lg object-cover"
+                    onError={(e) => {
+                      // Replace failed image with an inline data URI placeholder instead of a file path
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite error loop
+                      // Use a simple data URI for the placeholder - gray background with text
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%23999999'%3ETemplate Preview Unavailable. It Was Only for reference%3C/text%3E%3C/svg%3E";
+                    }}
+                  />
+                </div>
+              ) : (
+                // Fallback for empty image path
+                <div className="w-full h-64 rounded-xl shadow-lg bg-gray-200 flex items-center justify-center">
+                  <p className="text-gray-500">Template Preview Unavailable</p>
+                </div>
+              )}
             </div>
           ))
         ) : (
-          <p className="text-center text-gray-500">No templates available</p>
+          <p className="text-center text-gray-500 col-span-3">No templates available for this category</p>
         )}
       </div>
     );
   };
-
 
   const Loader = () => (
     <div className="flex justify-center items-center h-64">
@@ -190,9 +213,10 @@ const TemplateHomePage = () => {
               {/* "All" button should be shown first */}
               <button
                 onClick={handleAllClick}
-                className={`px-4 font-sans text-xl py-2 m-2 mr-5 text-left rounded-sm hover:bg-blue-500 hover:text-white ${selectedCategory === "all"
-                  ? "bg-blue-200 font-semibold text-blue-500"
-                  : "text-gray-600"
+                className={`px-4 font-sans text-xl py-2 m-2 mr-5 text-left rounded-sm hover:bg-blue-500 hover:text-white ${
+                  selectedCategory === "all"
+                    ? "bg-blue-200 font-semibold text-blue-500"
+                    : "text-gray-600"
                 }`}
               >
                 All
@@ -202,9 +226,10 @@ const TemplateHomePage = () => {
                 <button
                   key={category}
                   onClick={() => handleCategoryClick(category)}
-                  className={`px-4 font-sans text-xl py-2 m-2 mr-5 text-left rounded-sm hover:bg-blue-500 hover:text-white ${selectedCategory === category.toLowerCase()
-                    ? "bg-blue-200 font-semibold text-blue-500"
-                    : "text-gray-600"
+                  className={`px-4 font-sans text-xl py-2 m-2 mr-5 text-left rounded-sm hover:bg-blue-500 hover:text-white ${
+                    selectedCategory === category.toLowerCase()
+                      ? "bg-blue-200 font-semibold text-blue-500"
+                      : "text-gray-600"
                   }`}
                 >
                   {category}

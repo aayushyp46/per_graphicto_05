@@ -232,24 +232,32 @@ export default function HomeTab() {
           />
         </div>
 
-        <section className="mb-12 p-2">
-          <h2 className="text-lg pl-4 font-semibold text-gray-700 mb-4">
-            Featured Templates
-          </h2>
-          <div className="relative w-full">
-            <div className="flex overflow-hidden justify-center">
-              {Object.keys(categorizedTemplates).length > 0 ? (
-                getVisibleTemplates(Object.keys(categorizedTemplates)[0]).map(
-                  (template) => (
+        {/* Featured Templates Section */}
+        {Object.keys(categorizedTemplates).length > 0 && (
+          <section className="mb-12 p-2">
+            <h2 className="text-lg pl-4 font-semibold text-gray-700 mb-4">
+              Featured Templates
+            </h2>
+            <div className="relative w-full">
+              <div className="flex overflow-hidden justify-center">
+                {getVisibleTemplates(Object.keys(categorizedTemplates)[0]).map(
+                  (template, index) => (
                     <div
-                      key={template.id}
+                      key={`featured-${template.id}-${index}`}
                       className="relative group min-w-[150px] h-40 flex items-center justify-center mx-2 sm:min-w-[200px] sm:h-40 md:min-w-[250px] md:h-56 lg:min-w-[300px] lg:h-64"
                     >
                       <Image
                         src={template.url}
-                        alt={template.alt}
+                        alt={template.alt || `Featured Template ${index}`}
                         width={500}
                         height={300}
+                           onError={(e) => {
+                      // Replace failed image with an inline data URI placeholder instead of a file path
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite error loop
+                      // Use a simple data URI for the placeholder - gray background with text
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%23999999'%3ETemplate Unavailable.(reference Only)%3C/text%3E%3C/svg%3E";
+                    }}
                         className="rounded-lg shadow-lg object-cover w-full h-full sm:w-[200px] sm:h-[100px] md:w-[250px] md:h-[150px] lg:w-[500px] lg:h-[300px] 2xl:w-[600px]"
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity duration-300 rounded-lg">
@@ -273,38 +281,34 @@ export default function HomeTab() {
                       </div>
                     </div>
                   )
-                )
-              ) : (
-                <div className="text-center py-8 text-gray-500">
-                  No templates available
-                </div>
+                )}
+              </div>
+
+              {Object.keys(categorizedTemplates).length > 0 && (
+                <>
+                  <button
+                    onClick={() =>
+                      handlePrev(Object.keys(categorizedTemplates)[0])
+                    }
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={() =>
+                      handleNext(Object.keys(categorizedTemplates)[0])
+                    }
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center"
+                  >
+                    ›
+                  </button>
+                </>
               )}
             </div>
+          </section>
+        )}
 
-            {Object.keys(categorizedTemplates).length > 0 && (
-              <>
-                <button
-                  onClick={() =>
-                    handlePrev(Object.keys(categorizedTemplates)[0])
-                  }
-                  className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center"
-                >
-                  ‹
-                </button>
-                <button
-                  onClick={() =>
-                    handleNext(Object.keys(categorizedTemplates)[0])
-                  }
-                  className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center"
-                >
-                  ›
-                </button>
-              </>
-            )}
-          </div>
-        </section>
-
-    
+        {/* Your Graphics Section */}
         <section className="mb-12 p-2 ml-2 lg:ml-0">
           <h2 className="text-lg pl-4 font-semibold text-gray-700 mb-4">
             Your Graphics
@@ -317,6 +321,13 @@ export default function HomeTab() {
                 width={500}
                 height={300}
                 className="rounded-lg shadow-lg object-cover w-full h-full sm:w-[200px] sm:h-[100px] md:w-[255px] md:h-[225px] lg:w-[500px] lg:h-56 2xl:w-full 2xl:h-full"
+                  onError={(e) => {
+                      // Replace failed image with an inline data URI placeholder instead of a file path
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite error loop
+                      // Use a simple data URI for the placeholder - gray background with text
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%23999999'%3ETemplate Preview Unavailable.(reference Only)%3C/text%3E%3C/svg%3E";
+                    }}
               />
               <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity duration-300 rounded-lg">
                 <div className="space-y-3 flex flex-col ">
@@ -341,25 +352,32 @@ export default function HomeTab() {
           </div>
         </section>
 
-       
+        {/* Category Templates Sections */}
         {Object.keys(categorizedTemplates).map((category) => (
-          <section key={category} className="mb-12 pt-4 p-2">
+          <section key={`category-section-${category}`} className="mb-12 pt-4 p-2">
             <h2 className="text-lg pl-4 font-semibold text-gray-700 mb-4">
               {category}
             </h2>
             <div className="relative w-full">
               <div className="flex overflow-hidden justify-center">
-                {getVisibleTemplates(category).map((template) => (
+                {getVisibleTemplates(category).map((template, index) => (
                   <div
-                    key={template.id}
+                    key={`${category}-${template.id}-${index}`}
                     className="relative group min-w-[150px] h-40 flex items-center justify-center mx-2 sm:min-w-[200px] sm:h-40 md:min-w-[250px] md:h-56 lg:min-w-[300px] lg:h-64"
                   >
                     <Image
                       src={template.url}
-                      alt={template.alt}
+                      alt={template.alt || `${category} Template ${index}`}
                       width={500}
                       height={300}
                       className="rounded-lg shadow-lg object-cover w-full h-full sm:w-[200px] sm:h-[100px] md:w-[250px] md:h-[150px] lg:w-[500px] lg:h-[300px] 2xl:w-[600px]"
+                        onError={(e) => {
+                      // Replace failed image with an inline data URI placeholder instead of a file path
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite error loop
+                      // Use a simple data URI for the placeholder - gray background with text
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%23999999'%3ETemplate Preview Unavailable.%3C/text%3E%3C/svg%3E";
+                    }}
                     />
                     <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity duration-300 rounded-lg">
                       <div className="space-y-3 flex flex-col ml-6">
@@ -405,6 +423,7 @@ export default function HomeTab() {
         ))}
       </main>
      
+      {/* Template Preview Modal */}
       {showPreview && previewImage && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-hidden">
@@ -440,6 +459,13 @@ export default function HomeTab() {
                     alt="Template Preview"
                     fill
                     className="object-contain rounded-lg"
+                      onError={(e) => {
+                      // Replace failed image with an inline data URI placeholder instead of a file path
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite error loop
+                      // Use a simple data URI for the placeholder - gray background with text
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%23999999'%3ETemplate Preview Unavailable. It Was Only for reference%3C/text%3E%3C/svg%3E";
+                    }}
                   />
                 </div>
               </div>

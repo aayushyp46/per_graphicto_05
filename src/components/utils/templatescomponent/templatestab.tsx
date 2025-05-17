@@ -168,6 +168,13 @@ const TemplateTabPage = () => {
                         width={500} 
                         height={300} 
                         className="w-full h-auto rounded-xl shadow-lg object-cover"
+                          onError={(e) => {
+                      // Replace failed image with an inline data URI placeholder instead of a file path
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite error loop
+                      // Use a simple data URI for the placeholder - gray background with text
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%23999999'%3ETemplate Preview Unavailable. It Was Only for reference%3C/text%3E%3C/svg%3E";
+                    }}
                       />
                       <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-opacity duration-300 rounded-xl">
                         <div className="space-y-3 flex flex-col">
@@ -224,6 +231,13 @@ const TemplateTabPage = () => {
                     alt="Template Preview" 
                     fill
                     className="object-contain rounded-lg"
+                      onError={(e) => {
+                      // Replace failed image with an inline data URI placeholder instead of a file path
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite error loop
+                      // Use a simple data URI for the placeholder - gray background with text
+                      target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='500' viewBox='0 0 600 500'%3E%3Crect width='600' height='500' fill='%23f0f0f0'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' text-anchor='middle' fill='%23999999'%3ETemplate Preview Unavailable. It Was Only for reference%3C/text%3E%3C/svg%3E";
+                    }}
                   />
                 </div>
               </div>
