@@ -154,7 +154,7 @@ const LoginTabPage = () => {
                   htmlFor="email"
                   className="font-bold text-lg text-[#303133]"
                 >
-                  Email
+                  Email  
                 </label>
                 <input
                   name="email"
