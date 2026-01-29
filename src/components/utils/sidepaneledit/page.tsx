@@ -4,6 +4,7 @@ import TemplatesEdit from "@/components/utils/templatesedit/page";
 import EditColor from "../editcolor/page";
 import ItemList from "../itemedit/page";
 import FontEdit from "../fontedit/page";
+import IdeaChatBot from "@/components/IdeaChatBot";
 
 const panels = [
   { name: "ITEMS", icon: (
@@ -47,40 +48,61 @@ const panels = [
 export default function SidePanel() {
 
   const [activePanel , setActivePanel] = useState<string>("ITEMS");
+  const [openChatbot, setOpenChatbot] = useState(false);
+
 
   return (
-    <div className="flex h-screen">
-      <div className="bg-[#003459] text-white w-16 flex flex-col items-center space-y-2">
-        {panels.map((panel) => (
-          <button
-            key={panel.name}
-            className={`flex flex-col items-center p-3 rounded hover:bg-[#007ea7] ${activePanel === panel.name ? "bg-[#007ea7]" : ""}`}
-            onClick={() => setActivePanel(panel.name)}
-          >
-            {panel.icon}
-            <span className="text-xs mt-1" style={{ fontSize: "0.65rem" }}>{panel.name}</span>
-          </button>
-        ))}
+     <div className="flex h-screen">
+      {/* LEFT SIDEBAR */}
+      <div className="bg-[#003459] text-white w-16 flex flex-col justify-between py-3">
+        <div className="flex flex-col items-center space-y-2">
+          {panels.map((panel) => (
+            <button
+              key={panel.name}
+              className={`flex flex-col items-center p-3 rounded hover:bg-[#007ea7]
+                ${activePanel === panel.name ? "bg-[#007ea7]" : ""}`}
+              onClick={() => setActivePanel(panel.name)}
+            >
+              {panel.icon}
+              <span className="text-[10px] mt-1">{panel.name}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* CHATBOT ICON */}
+        <button
+          onClick={() => setOpenChatbot(true)}
+          className="mx-auto mb-2 p-3 rounded-full bg-[#007ea7] hover:bg-[#00a8e8]"
+          title="Idea Chatbot"
+        >
+          🤖
+        </button>
       </div>
 
-
+      {/* RIGHT PANEL */}
       <div className="flex-1">
-        {activePanel && (
-          <div className="w-96 bg-white h-screen">
-            {activePanel === "TEMPLATES" ? (
-              <TemplatesEdit />
-            ) : activePanel === "COLORS" ? (
-              <EditColor />
-            ) : activePanel === "ITEMS" ? (
-              <ItemList />
-            ) : activePanel === "FONTS" ? (
-              <FontEdit />
-            ) : (
-              <p>Content for {activePanel} panel goes here.</p>
-            )}
-          </div>
-        )}
+        <div className="w-96 bg-white h-screen">
+          {activePanel === "TEMPLATES" && <TemplatesEdit />}
+          {activePanel === "COLORS" && <EditColor />}
+          {activePanel === "ITEMS" && <ItemList />}
+          {activePanel === "FONTS" && <FontEdit />}
+        </div>
       </div>
+
+      {/* CHATBOT MODAL */}
+      {openChatbot && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="w-[420px] bg-white rounded-xl shadow-lg p-1 relative">
+            <button
+              onClick={() => setOpenChatbot(false)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-black"
+            >
+              ✕
+            </button>
+            <IdeaChatBot />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
