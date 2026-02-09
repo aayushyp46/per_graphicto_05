@@ -32,7 +32,7 @@ export default function TemplateAIGenerator() {
   const generate = async () => {
     setLoading(true);
     setItems([]);
-    setError("");
+    setError("");   
 
     try {
       const res = await fetch("/api/generate-template", {
