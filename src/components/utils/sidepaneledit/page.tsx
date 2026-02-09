@@ -5,6 +5,7 @@ import EditColor from "../editcolor/page";
 import ItemList from "../itemedit/page";
 import FontEdit from "../fontedit/page";
 import IdeaChatBot from "@/components/IdeaChatBot";
+import TemplateAIGenerator from "@/components/TemplateAIGenerator";
 
 const panels = [
   { name: "ITEMS", icon: (
@@ -41,18 +42,23 @@ const panels = [
     { name: "GENERATE", icon: (
         <svg data-v-d511a72a="" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 20 20" fill="currentColor" className=" h-5 svg-icon"><path d="M9.7 4.2c-1-1-1.7-2.7-2-4.2-.3 1.5-1 3.2-1.9 4.2-1 1-2.6 1.6-4.2 1.9 1.5.3 3.2 1 4.2 1.9 1 1 1.6 2.6 1.9 4.2.3-1.5 1-3.2 2-4.1 1-1 2.6-1.6 4.2-1.9-1.6-.4-3.3-1.1-4.2-2zM15.9 11.9c-.6-.6-1-1.6-1.2-2.5-.2.9-.6 1.9-1.2 2.5-.6.6-1.6 1-2.5 1.2.9.2 1.9.6 2.5 1.2.6.6 1 1.6 1.2 2.5.2-.9.6-1.9 1.2-2.5.6-.6 1.6-1 2.5-1.2-.9-.2-1.9-.6-2.5-1.2zM5.7 13.9c-.2.8-.5 1.6-1 2.1s-1.3.8-2.1 1c.8.2 1.6.5 2.1 1s.8 1.3 1 2.1c.2-.8.5-1.6 1-2.1s1.3-.8 2.1-1c-.8-.2-1.6-.5-2.1-1s-.8-1.4-1-2.1z"></path></svg>
             ) }
-
 ];
 
-
 export default function SidePanel() {
-
-  const [activePanel , setActivePanel] = useState<string>("ITEMS");
+  const [activePanel, setActivePanel] = useState<string>("ITEMS");
   const [openChatbot, setOpenChatbot] = useState(false);
+  const [openGenerateModal, setOpenGenerateModal] = useState(false);
 
+  const handlePanelClick = (panelName: string) => {
+    if (panelName === "GENERATE") {
+      setOpenGenerateModal(true);
+    } else {
+      setActivePanel(panelName);
+    }
+  };
 
   return (
-     <div className="flex h-screen">
+    <div className="flex h-screen">
       {/* LEFT SIDEBAR */}
       <div className="bg-[#003459] text-white w-16 flex flex-col justify-between py-3">
         <div className="flex flex-col items-center space-y-2">
@@ -61,7 +67,7 @@ export default function SidePanel() {
               key={panel.name}
               className={`flex flex-col items-center p-3 rounded hover:bg-[#007ea7]
                 ${activePanel === panel.name ? "bg-[#007ea7]" : ""}`}
-              onClick={() => setActivePanel(panel.name)}
+              onClick={() => handlePanelClick(panel.name)}
             >
               {panel.icon}
               <span className="text-[10px] mt-1">{panel.name}</span>
@@ -86,8 +92,42 @@ export default function SidePanel() {
           {activePanel === "COLORS" && <EditColor />}
           {activePanel === "ITEMS" && <ItemList />}
           {activePanel === "FONTS" && <FontEdit />}
+          {/* Remove the inline GENERATE panel since it will show in modal */}
         </div>
       </div>
+
+      {/* FULLSCREEN GENERATE MODAL */}
+      {openGenerateModal && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-white">
+          {/* HEADER */}
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setOpenGenerateModal(false)}
+                className="p-2 hover:bg-gray-100 rounded-full"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </button>
+              <h2 className="text-xl font-semibold">AI Template Generator</h2>
+            </div>
+            <button
+              onClick={() => setOpenGenerateModal(false)}
+              className="p-2 hover:bg-gray-100 rounded-full"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+
+          {/* CONTENT - FULL HEIGHT */}
+          <div className="flex-1 overflow-auto p-4 md:p-6">
+            <TemplateAIGenerator />
+          </div>
+        </div>
+      )}
 
       {/* CHATBOT MODAL */}
       {openChatbot && (

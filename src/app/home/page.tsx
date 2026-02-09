@@ -4,7 +4,7 @@ import HomeTab from "@/components/utils/homecomponent/hometab";
 
 function HomePage() {
   return (
-    <div>
+    <div suppressHydrationWarning={true}>
     <HomeTab />
     </div>
   );
