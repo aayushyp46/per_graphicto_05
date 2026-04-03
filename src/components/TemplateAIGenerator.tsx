@@ -124,7 +124,7 @@ export default function TemplateAIGenerator() {
 
       case "circle":
         return (
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2  text-black gap-8">
             {items.map((item, i) => (
               <div key={i} className="flex flex-col items-center">
                 <div className="relative w-64 h-64">

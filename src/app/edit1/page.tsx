@@ -165,52 +165,44 @@ export default function EditPage() {
           )}
         </div>
         <div className="flex-grow bg-gray-100 flex justify-center items-center">
-  {items.map((item, index) => (
-    <div key={index} className="flex flex-col items-center m-4">
-    
-      <div className="relative w-40 h-40 flex items-center justify-center">
-      
-        {index % 2 === 0 ? (
-          <div className="relative flex items-center justify-center">
-            <div className="w-0 h-0 border-l-[80px] border-r-[80px] border-t-[80px] border-l-transparent border-r-transparent border-t-red-500"></div>
-            <div className="absolute flex items-center justify-center text-white text-3xl">
-              {item.icon}
+          {items.map((item, index) => (
+            <div key={index} className="flex flex-col items-center m-4">
+              <div className="relative w-40 h-40 flex items-center justify-center">
+                {index % 2 === 0 ? (
+                  <div className="relative flex items-center justify-center">
+                    <div className="w-0 h-0 border-l-[80px] border-r-[80px] border-t-[80px] border-l-transparent border-r-transparent border-t-red-500"></div>
+                    <div className="absolute flex items-center justify-center text-white text-3xl">
+                      {item.icon}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="relative flex items-center justify-center">
+                    <div className="w-0 h-0 border-l-[80px] mt-96 border-r-[80px] border-b-[80px] border-l-transparent border-r-transparent border-b-purple-500"></div>
+                    <div className="absolute flex mt-96 items-center justify-center text-white text-3xl">
+                      {item.icon}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div
+                className={`relative w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
+                  index % 2 === 0 ? "bg-red-500" : "bg-purple-500"
+                }`}
+              >
+                <span className="text-white text-xl">{item.shortText}</span>
+              </div>
+
+              <h2
+                className={`text-lg font-bold text-gray-700 text-center ${index % 2 === 1 ? "mt-4" : ""}`}
+              >
+                {item.title}
+              </h2>
+
+              <p className={`text-gray-500 text-center `}>{item.description}</p>
             </div>
-          </div>
-        ) : (
-          <div className="relative flex items-center justify-center">
-            <div className="w-0 h-0 border-l-[80px] mt-96 border-r-[80px] border-b-[80px] border-l-transparent border-r-transparent border-b-purple-500"></div>
-            <div className="absolute flex mt-96 items-center justify-center text-white text-3xl">
-              {item.icon}
-            </div>
-          </div>
-        )}
-      </div>
-
-     
-      <div
-        className={`relative w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
-          index % 2 === 0 ? "bg-red-500" : "bg-purple-500"
-        }`}
-      >
-        <span className="text-white text-xl">{item.shortText}</span>
-      </div>
-
-      <h2 className={`text-lg font-bold text-gray-700 text-center ${index % 2 === 1 ? 'mt-4' : ''}`}>
-        {item.title}
-      </h2>
-
-      
-      <p className={`text-gray-500 text-center `}>
-        {item.description}
-      </p>
-    </div>
-  ))}
-</div>
-
-
-
-
+          ))}
+        </div>
       </div>
     </div>
   );

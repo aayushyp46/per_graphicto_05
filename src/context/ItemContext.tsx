@@ -11,14 +11,11 @@ export interface Item {
     [key: string]: string | number | boolean | null | undefined;
   }
   
-
-
 export interface Color {
   id: number;
   static: string;
   fill: string[];
 }
-
 
 interface ItemContextType {
   items: Item[];

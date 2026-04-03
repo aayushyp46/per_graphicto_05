@@ -1,7 +1,7 @@
 "use client";
-import React, { useState ,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from 'next/image';
+import Image from "next/image";
 import Sidebar from "@/components/utils/sidebar";
 import { isUserAuthenticated } from "@/components/utils/authHelper";
 
@@ -9,61 +9,60 @@ export default function Home() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const handleSidebarButtonClick = (category: string) => {
     console.log(`Button clicked for category: ${category}`);
-};
+  };
 
-const handleSidebarAllButtonClick = () => {
+  const handleSidebarAllButtonClick = () => {
     console.log("All button clicked");
-};
+  };
 
-useEffect(() => {
-  if (!isUserAuthenticated()) {
+  useEffect(() => {
+    if (!isUserAuthenticated()) {
       router.push("/login");
-  } else {
-    setIsAuthenticated(true);
-  }
-}, [router]);
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
 
-if (!isAuthenticated) {
-return null;
-}
-      
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <div className="flex h-screen font-sans">
       <Sidebar
-                     handleButtonClick={handleSidebarButtonClick}
-                     handleAllButtonClick={handleSidebarAllButtonClick}
-                 />
-      <main className={`flex-grow bg-gray-100 overflow-y-auto p-1 ${isSidebarOpen ? "ml-0" : "ml-0 md:ml-60 lg:ml-80"} transition-all duration-300`}>
-         <div className="block sm:hidden md:hidden bg-white h-12 mb-4 shadow-md fixed w-[90%] pl-6 ml-2 pr-2 z-10">
-                            <div className="flex justify-between items-center ">
-                               
-                                <div>
-                                    <button
-                                        className=" md:hidden lg:hidden mt-3 ml-2  bg-blue-500 text-white rounded"
-                                        onClick={() => setIsSidebarOpen(true)} 
-                                    >
-                                        <Image
-                                            src="/icon/dropdown.png"
-                                            alt="Open Sidebar"
-                                            width={24}
-                                            height={24}
-        
-                                        />
-                                    </button>
-                                </div>
-                                <Image
-                                    src="/logo/logo.png"
-                                    alt="Logo"
-                                    width={100}
-                                    height={50}
-                                    className="mt-2"
-                                />
-                            </div>
-                        </div>
+        handleButtonClick={handleSidebarButtonClick}
+        handleAllButtonClick={handleSidebarAllButtonClick}
+      />
+      <main
+        className={`flex-grow bg-gray-100 overflow-y-auto p-1 ${isSidebarOpen ? "ml-0" : "ml-0 md:ml-60 lg:ml-80"} transition-all duration-300`}
+      >
+        <div className="block sm:hidden md:hidden bg-white h-12 mb-4 shadow-md fixed w-[90%] pl-6 ml-2 pr-2 z-10">
+          <div className="flex justify-between items-center ">
+            <div>
+              <button
+                className=" md:hidden lg:hidden mt-3 ml-2  bg-blue-500 text-white rounded"
+                onClick={() => setIsSidebarOpen(true)}
+              >
+                <Image
+                  src="/icon/dropdown.png"
+                  alt="Open Sidebar"
+                  width={24}
+                  height={24}
+                />
+              </button>
+            </div>
+            <Image
+              src="/logo/logo.png"
+              alt="Logo"
+              width={100}
+              height={50}
+              className="mt-2"
+            />
+          </div>
+        </div>
         <h1 className="text-2xl mt-20 ml-5 lg:mt-6 lg:ml-10 text-gray-700 font-bold mb-6">
           My Graphics
         </h1>

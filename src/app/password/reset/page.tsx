@@ -2,7 +2,7 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import Image from 'next/image';
+import Image from "next/image";
 import authService from "@/services/AuthService";
 
 const ResetPasswordForm = () => {
@@ -66,8 +66,8 @@ const ResetPasswordForm = () => {
     const resetData = {
       token: token,
       newPassword: formData.confirmPassword,
-    }
-    const response = await authService.ResetPassword(resetData)
+    };
+    const response = await authService.ResetPassword(resetData);
     if (response) {
       setTimeout(() => {
         setIsSubmitting(false);
@@ -80,7 +80,6 @@ const ResetPasswordForm = () => {
   return (
     <div className="relative min-h-screen flex justify-center items-center bg-gradient-to-tr from-[#00a8e8] to-[#007ea7] overflow-hidden">
       <div className="absolute w-full h-full">
-
         <div className="absolute bg-white/10 rounded-[10%] w-[200px] h-[200px] top-[60px] left-[20%] transform rotate-[55deg]"></div>
         <div className="absolute bg-white/10 rounded-[4%] w-[150px] h-[80px] bottom-[150px] left-[5%] transform rotate-[5deg]"></div>
         <div className="absolute bg-white/10 rounded-full w-[150px] h-[150px] bottom-[10px] right-[23%]"></div>
@@ -113,21 +112,24 @@ const ResetPasswordForm = () => {
         </div>
       ) : (
         <div className="relative m-4 bg-white p-6 rounded-lg shadow-lg w-full max-w-xl">
-           <Image
-                src="/logo/logo.png"
-                alt="logo"
-                width={180}
-                height={100}
-                className="mx-auto mb-4 cursor-pointer"
-                onClick={() => router.push("/intro")}
-              />
+          <Image
+            src="/logo/logo.png"
+            alt="logo"
+            width={180}
+            height={100}
+            className="mx-auto mb-4 cursor-pointer"
+            onClick={() => router.push("/intro")}
+          />
           <h1 className="text-center text-2xl font-sans text-[#303133] mt-1 mb-6">
             Enter Your New Password
           </h1>
 
           <form className="p-4" onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="email" className="font-bold text-lg text-[#303133]">
+              <label
+                htmlFor="email"
+                className="font-bold text-lg text-[#303133]"
+              >
                 Email
               </label>
               <input
@@ -144,7 +146,10 @@ const ResetPasswordForm = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="password" className="font-bold text-lg text-[#303133]">
+              <label
+                htmlFor="password"
+                className="font-bold text-lg text-[#303133]"
+              >
                 New Password
               </label>
               <input
@@ -161,7 +166,10 @@ const ResetPasswordForm = () => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="confirmPassword" className="font-bold text-lg text-[#303133]">
+              <label
+                htmlFor="confirmPassword"
+                className="font-bold text-lg text-[#303133]"
+              >
                 Confirm Password
               </label>
               <input
@@ -173,21 +181,22 @@ const ResetPasswordForm = () => {
                 className="w-full h-14 px-4 py-2 mt-2 border-2 text-black font-sans rounded-md shadow-sm focus:border-[#007ea7] focus:ring-[#007ea7]"
               />
               {errors.confirmPassword && (
-                <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.confirmPassword}
+                </p>
               )}
             </div>
 
             <button
               type="submit"
-              className={`w-full py-2 mt-6 h-14 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+              className={`w-full py-2 mt-6 h-14 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 ${
+                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               disabled={isSubmitting}
             >
               {isSubmitting ? "Resetting..." : "Reset Password"}
             </button>
           </form>
-
-
         </div>
       )}
     </div>
