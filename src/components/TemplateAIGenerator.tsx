@@ -126,7 +126,7 @@ export default function TemplateAIGenerator() {
         return (
           <div className="grid grid-cols-2  text-black gap-8">
             {items.map((item, i) => (
-              <div key={i} className="flex flex-col items-center">
+              <div key={i} className="flex text-black flex-col items-center">
                 <div className="relative w-64 h-64">
                   {/* Outer ring */}
                   <svg className="absolute inset-0 w-full h-full -rotate-90">
@@ -150,7 +150,7 @@ export default function TemplateAIGenerator() {
                     />
                   </svg>
                   {/* Center content */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                  <div className="absolute text-black inset-0 flex flex-col items-center justify-center text-center p-8">
                     <div className="text-5xl mb-3">{item.icon}</div>
                     <h3
                       className="text-xl font-bold mb-2"
@@ -177,7 +177,7 @@ export default function TemplateAIGenerator() {
 
       case "badge":
         return (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 text-black md:grid-cols-3 lg:grid-cols-4 gap-6">
             {items.map((item, i) => (
               <div
                 key={i}
@@ -202,7 +202,7 @@ export default function TemplateAIGenerator() {
 
       case "card":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 text-black  md:grid-cols-2 gap-6">
             {items.map((item, i) => (
               <div
                 key={i}
@@ -291,7 +291,7 @@ export default function TemplateAIGenerator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
+    <div className="min-h-screen  text-black bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -336,7 +336,7 @@ export default function TemplateAIGenerator() {
               Describe Your Template
             </label>
             <textarea
-              className="w-full border-2 border-gray-300 rounded-xl p-4 text-base focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition-all"
+              className="w-full border-2 text-black border-gray-300 rounded-xl p-4 text-base focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 transition-all"
               placeholder="e.g., Features for a fitness mobile app, Steps to start a business, Benefits of cloud computing, Key principles of design..."
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
